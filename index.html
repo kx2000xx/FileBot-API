@@ -1,1 +1,582 @@
-<h1>FileBot API Index Page</h1>
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FileBot API Documentation</title>
+    <style>
+        :root {
+            --primary: #0a0a0a;
+            --secondary: #121212;
+            --accent: #4CAF50;
+            --accent-light: #6fbf73;
+            --text: #f0f0f0;
+            --text-secondary: #b0b0b0;
+            --gradient: linear-gradient(135deg, #4CAF50 0%, #2E7D32 100%);
+        }
+        
+        body {
+            font-family: 'Tajawal', Arial, sans-serif;
+            background-color: var(--primary);
+            color: var(--text);
+            margin: 0;
+            padding: 0;
+            line-height: 1.7;
+            font-weight: bold;
+            font-size: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: var(--gradient);
+            padding: 30px 0 20px;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+        }
+                
+        h1 {
+            color: white;
+            margin: 0;
+            font-size: 2.8em;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            letter-spacing: 1px;
+        }
+        
+        .header-subtitle {
+            font-size: 1.1em;
+            color: rgba(255, 255, 255, 0.9);
+            margin-top: 10px;
+        }
+        
+        h2 {
+            color: var(--accent);
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: 12px;
+            margin-top: 40px;
+            font-size: 1.8em;
+            position: relative;
+        }
+        
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            right: 0;
+            width: 100px;
+            height: 2px;
+            background: var(--gradient);
+        }
+        
+        h3 {
+            color: var(--text);
+            margin-top: 30px;
+            font-size: 1.4em;
+        }
+        
+        .card {
+            background-color: var(--secondary);
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+            border-left: 4px solid var(--accent);
+            transition: all 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+        }
+        
+        .endpoint {
+            border-left: 4px solid var(--accent);
+            padding-left: 20px;
+        }
+        
+        .method {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-weight: bold;
+            margin-left: 12px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        
+        .method.post {
+            background-color: var(--accent);
+            color: white;
+        }
+        
+        .method.get {
+            background-color: #2196F3;
+            color: white;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        th, td {
+            padding: 15px 20px;
+            text-align: right;
+            border-bottom: 1px solid #333;
+        }
+        
+        th {
+            background-color: var(--accent);
+            color: white;
+            font-weight: 500;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #1a1a1a;
+        }
+        
+        tr:hover {
+            background-color: #2a2a2a;
+        }
+        
+        code {
+            background-color: #2a2a2a;
+            padding: 3px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            color: var(--accent-light);
+            font-size: 0.95em;
+        }
+        
+        .config-item {
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px dashed #333;
+        }
+        
+        .config-item:last-child {
+            border-bottom: none;
+        }
+        
+        .config-key {
+            font-weight: bold;
+            color: var(--accent);
+            font-size: 1.1em;
+        }
+        
+        .config-desc {
+            color: var(--text-secondary);
+            margin-top: 8px;
+            padding-right: 15px;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 60px;
+            padding: 30px;
+            background-color: var(--secondary);
+            color: var(--text-secondary);
+            font-size: 0.95em;
+            border-top: 1px solid #333;
+        }
+        
+        .footer-text {
+            display: inline-block;
+            padding: 8px 20px;
+            background-color: rgba(76, 175, 80, 0.1);
+            border-radius: 20px;
+            border: 1px solid rgba(76, 175, 80, 0.3);
+        }
+
+        .code-example {
+            position: relative;
+            background-color: #1e1e1e;
+            border-radius: 10px;
+            padding: 25px;
+            margin: 30px 0;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            border-left: 4px solid var(--accent);
+            direction: ltr;
+            text-align: left;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .code-example pre {
+            margin: 0;
+            white-space: pre-wrap;
+            color: #d4d4d4;
+            line-height: 1.5;
+            tab-size: 4;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: #333;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: 'Tajawal', sans-serif;
+            font-size: 0.85em;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .copy-btn:hover {
+            background-color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .copy-btn.copied {
+            background-color: #2E7D32;
+        }
+
+        .code-keyword {
+            color: #569cd6;
+        }
+
+        .code-string {
+            color: #ce9178;
+        }
+
+        .code-comment {
+            color: #6a9955;
+            font-style: italic;
+        }
+
+        .code-function {
+            color: #dcdcaa;
+        }
+
+        .code-parameter {
+            color: #9cdcfe;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            h1 {
+                font-size: 2.2em;
+            }
+            
+            .card {
+                padding: 20px;
+            }
+            
+            .code-example {
+                padding: 20px 15px;
+                font-size: 0.9em;
+            }
+            
+            .copy-btn {
+                top: 10px;
+                right: 10px;
+                padding: 6px 12px;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>FileBot API</h1>
+            <p class="header-subtitle">واجهة برمجة التطبيقات لإعادة تسمية الملفات بشكل ذكي و عن بعد</p>
+        </div>
+    </header>
+    
+    <div class="container">
+        <section id="overview">
+            <h2>نظرة عامة</h2>
+            <div class="card">
+                <p>FileBot API هي واجهة برمجة تطبيقات تسمح بإعادة تسمية الملفات بشكل ذكي و عن بعد بناءً على قواعد البيانات التي يدعمها البرنامج الأصلي. تدعم الواجهة معالجة تسميات و ترتيب ملفات الفيديو باستخدام قواعد تسمية متقدمة بجانب معلومات من قواعد البيانات الشهيرة.</p>               
+                <div class="info">
+                    <ul>
+                        <li><strong>الإصدار:</strong> 1.0</li>
+                        <li><strong>صيغة الاستجابة:</strong> JSON</li>
+                        <li><strong>امتدادات الملفات المدعومة:</strong> mp4 و mkv</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        
+        <section id="endpoints">
+            <h2>نقاط الوصول</h2>
+            
+            <div class="card endpoint">
+                <h3>/rename</h3>
+                <span class="method post">POST</span>
+                <p>تقوم هذه النقطة بإستلام و إعادة تسمية ملفات الفيديو بناءً على التنسيق المحدد و قاعدة البيانات المختارة.</p>
+                
+                <h4>المعاملات</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>الاسم</th>
+                            <th>النوع</th>
+                            <th>إلزامي</th>
+                            <th>الوصف</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>files</code></td>
+                            <td>file[]</td>
+                            <td>نعم</td>
+                            <td>ملفات الفيديو المراد معالجتها (متعددة)</td>
+                        </tr>
+                        <tr>
+                            <td><code>format</code></td>
+                            <td>string</td>
+                            <td>نعم</td>
+                            <td>تنسيق تسمية FileBot (مثال: {n} - {s00e00} - {t})</td>
+                        </tr>
+                        <tr>
+                            <td><code>db</code></td>
+                            <td>string</td>
+                            <td>لا</td>
+                            <td>قاعدة البيانات المختارة للتسمية (مثال: TheMovieDB, TheTVDB)</td>
+                        </tr>
+                        <tr>
+                            <td><code>q</code></td>
+                            <td>string</td>
+                            <td>لا</td>
+                            <td>فرض البحث باستخدام استعلام نصي أو معرف رقمي</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <h4>مثال للاستجابة</h4>
+                <div class="code-example">
+                    <button class="copy-btn" onclick="copyCode(this)"><i class="far fa-copy"></i> نسخ الكود</button>
+                    <pre><code>{
+   "file_count":2,
+   "id":"0aa582ac-1032-469a-bfdf-c3388ac0a60b",
+   "processed_files":[
+      {
+         "new_name":"Detective Conan - S01E02 - Company President's Daughter Kidnapping Case.mp4",
+         "original_name":"Case.Closed.S01E02.mp4",
+         "size":"2834KB"
+      },
+      {
+         "new_name":"Detective Conan - S01E01 - Roller Coaster Murder Case.mp4",
+         "original_name":"Case.Closed.S01E01.mp4",
+         "size":"2834KB"
+      }
+   ],
+   "status":"success",
+   "total_size":"5MB"
+}</code></pre>
+                </div>
+            </div>
+            
+            <div class="card endpoint">
+                <h3>/ping</h3>
+                <span class="method get">GET</span>
+                <p>تستخدم هذه النقطة  لاختبار الاتصال بالخادم والتحقق من حالة عمله.</p>
+                
+                <h4>المعاملات</h4>
+                <p>لا يوجد معاملات مطلوبة</p>
+                
+                <h4>مثال للاستجابة</h4>
+                <div class="code-example">
+                    <button class="copy-btn" onclick="copyCode(this)"><i class="far fa-copy"></i> نسخ الكود</button>
+                    <pre><code>{
+  "message": "pong",
+  "status": 200
+}</code></pre>
+                </div>
+            </div>
+        </section>
+        
+        <section id="config">
+            <h2>ملف التكوين</h2>
+            <div class="card">
+                <p>يتم تكوين الخادم باستخدام ملف <code>config.json</code> يحتوي على الإعدادات التالية:</p>
+                
+                <div class="config-item">
+                    <span class="config-key">port</span>
+                    <p class="config-desc">منفذ الخادم الذي سيستمع عليه التطبيق</p>
+                </div>
+                
+                <div class="config-item">
+                    <span class="config-key">workers</span>
+                    <p class="config-desc">عدد عمليات المعالجة (workers) التي ستعمل على معالجة الطلبات بشكل متوازي</p>
+                </div>
+                
+                <div class="config-item">
+                    <span class="config-key">max_file</span>
+                    <p class="config-desc">الحد الأقصى للملف الواحد الذي  يمكن رفعه في الطلب واحد (بالميغابايت)</p>
+                </div>
+                
+                <div class="config-item">
+                    <span class="config-key">max_total</span>
+                    <p class="config-desc">الحد الأقصى للحجم الإجمالي للملفات في كل طلب (بالميغابايت)</p>
+                </div>
+                
+                <div class="config-item">
+                    <span class="config-key">contact</span>
+                    <p class="config-desc">معلومات الاتصال بالمسؤول عن الخادم (يظهر في رسائل الأخطاء)</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="code-examples">
+            <h2>أمثلة للاستخدام</h2>
+            <div class="card">
+                <h3>مثال باستخدام Python</h3>
+                <p>كود Python التالي يوضح كيفية استخدام واجهة برمجة التطبيقات لإعادة تسمية ملفات متعددة:</p>
+                
+                <div class="code-example">
+                    <button class="copy-btn" onclick="copyCode(this)"><i class="far fa-copy"></i> نسخ الكود</button>
+                    <pre><code><span class="code-keyword">import</span> requests
+<span class="code-keyword">import</span> os
+<span class="code-keyword">from</span> tqdm <span class="code-keyword">import</span> tqdm
+
+<span class="code-comment"># إعدادات الخادم</span>
+SERVER_URL = <span class="code-string">'http://127.0.0.1:3000/rename'</span>
+
+<span class="code-keyword">class</span> <span class="code-function">ProgressTrackingFile</span>:
+    <span class="code-comment">"""تتبع تقدم رفع الملف"""</span>
+    <span class="code-keyword">def</span> <span class="code-function">__init__</span>(<span class="code-parameter">self</span>, <span class="code-parameter">file_obj</span>, <span class="code-parameter">progress_callback</span>):
+        <span class="code-parameter">self</span>.file_obj = file_obj
+        <span class="code-parameter">self</span>.progress_callback = progress_callback
+    
+    <span class="code-keyword">def</span> <span class="code-function">read</span>(<span class="code-parameter">self</span>, <span class="code-parameter">size</span>=-1):
+        chunk = <span class="code-parameter">self</span>.file_obj.read(size)
+        <span class="code-keyword">if</span> chunk:
+            <span class="code-parameter">self</span>.progress_callback(len(chunk))
+        <span class="code-keyword">return</span> chunk
+
+<span class="code-keyword">def</span> <span class="code-function">send_files</span>(<span class="code-parameter">file_paths</span>, <span class="code-parameter">format_str</span>, <span class="code-parameter">db</span>=<span class="code-string">''</span>, <span class="code-parameter">q</span>=<span class="code-string">''</span>):
+    <span class="code-keyword">try</span>:
+        <span class="code-comment"># التحقق من وجود الملفات</span>
+        valid_paths = []
+        <span class="code-keyword">for</span> path <span class="code-keyword">in</span> file_paths:
+            <span class="code-keyword">if</span> <span class="code-keyword">not</span> os.path.exists(path):
+                print(<span class="code-string">f"تحذير: الملف غير موجود - {path}"</span>)
+                <span class="code-keyword">continue</span>
+            valid_paths.append(path)
+
+        <span class="code-keyword">if</span> <span class="code-keyword">not</span> valid_paths:
+            <span class="code-keyword">raise</span> ValueError(<span class="code-string">"لا توجد ملفات صالحة للرفع"</span>)
+
+        <span class="code-comment"># إعداد البيانات</span>
+        data = {<span class="code-string">'format'</span>: format_str, <span class="code-string">'db'</span>: db, <span class="code-string">'q'</span>: q}
+        files = [(<span class="code-string">'files'</span>, (os.path.basename(path), open(path, <span class="code-string">'rb'</span>))) <span class="code-keyword">for</span> path <span class="code-keyword">in</span> valid_paths]
+        
+        <span class="code-comment"># تتبع التقدم</span>
+        <span class="code-keyword">with</span> tqdm(
+            total=sum(os.path.getsize(path) <span class="code-keyword">for</span> path <span class="code-keyword">in</span> valid_paths),
+            unit=<span class="code-string">'B'</span>,
+            unit_scale=<span class="code-keyword">True</span>,
+            desc=<span class="code-string">"جاري رفع الملفات"</span>
+        ) <span class="code-keyword">as</span> pbar:
+            <span class="code-comment"># إرسال الطلب</span>
+            response = requests.post(
+                SERVER_URL,
+                files=files,
+                data=data
+            )
+
+        <span class="code-comment"># معالجة النتيجة</span>
+        <span class="code-keyword">if</span> response.status_code == 200:
+            result = response.json()
+            print(<span class="code-string">f"\nتمت معالجة {len(result['processed_files'])} ملف بنجاح"</span>)
+            <span class="code-keyword">return</span> result
+        <span class="code-keyword">else</span>:
+            print(<span class="code-string">f"خطأ {response.status_code}: {response.text}"</span>)
+            <span class="code-keyword">return</span> <span class="code-keyword">None</span>
+
+    <span class="code-keyword">except</span> Exception <span class="code-keyword">as</span> e:
+        print(<span class="code-string">f"\nخطأ: {str(e)}"</span>)
+        <span class="code-keyword">return</span> <span class="code-keyword">None</span>
+
+<span class="code-comment"># مثال للاستخدام</span>
+result = send_files(
+    file_paths=[<span class="code-string">'S01E01.mp4'</span>, <span class="code-string">'S01E02.mp4'</span>],
+    format_str=<span class="code-string">'{n} - {s00e00} - {t}'</span>,
+    db=<span class="code-string">'TheTVDB'</span>,
+    q=<span class="code-string">'72454'</span>
+)
+
+<span class="code-keyword">if</span> result:
+    <span class="code-keyword">for</span> file <span class="code-keyword">in</span> result[<span class="code-string">'processed_files'</span>]:
+        os.rename(<span class="code-string">file['original_name'], file['new_name']</span>)
+        print(<span class="code-string">f"{file['original_name']} → {file['new_name']}"</span>)</code></pre>
+                </div>
+
+                <h4>المتطلبات</h4>
+                <p>لتشغيل هذا الكود، ستحتاج تثبيت البايثون مع تثبيت المكتبات التالية التالية:</p>
+                <ul>
+                    <li><code>requests</code> للتعامل مع طلبات HTTP</li>
+                    <li><code>tqdm</code> لعرض شريط التقدم</li>
+                </ul>
+                <p>يمكن تثبيتها باستخدام:</p>
+                <div class="code-example" style="padding: 10px 20px;">
+                    <button class="copy-btn" onclick="copyCode(this)"><i class="far fa-copy"></i> نسخ الكود</button>
+                    <pre><code>pip install requests tqdm</code></pre>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p class="footer-text">FileBot API &copy; 2025 - جميع الحقوق محفوظة</p>
+        </div>
+    </footer>
+
+    <script>
+        function copyCode(button) {
+            const codeBlock = button.nextElementSibling;
+            const codeText = codeBlock.textContent;
+            
+            const textarea = document.createElement('textarea');
+            textarea.value = codeText;
+            document.body.appendChild(textarea);
+            textarea.select();
+            
+            try {
+                const successful = document.execCommand('copy');
+                if (successful) {
+                    const icon = button.querySelector('i');
+                    icon.classList.remove('far', 'fa-copy');
+                    icon.classList.add('fas', 'fa-check');
+                    
+                    button.classList.add('copied');
+                    
+                    setTimeout(() => {
+                        icon.classList.remove('fas', 'fa-check');
+                        icon.classList.add('far', 'fa-copy');
+                        button.classList.remove('copied');
+                    }, 2000);
+                }
+            } catch (err) {
+                console.error('Failed to copy text: ', err);
+            }
+            
+            document.body.removeChild(textarea);
+        }
+    </script>
+</body>
+</html>
