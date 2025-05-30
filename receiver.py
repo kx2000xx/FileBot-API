@@ -344,6 +344,6 @@ def handle_callback():
 
 if __name__ == '__main__':
     os.makedirs(UPLOAD_FOLDER, exist_ok=True)
-    # from waitress import serve
-    # serve(app, host="0.0.0.0", port=port)
-    app.run(host='0.0.0.0', port=port, debug=True)
+    from waitress import serve
+    serve(app, host="0.0.0.0", port=port)
+    # app.run(host='0.0.0.0', port=port, debug=True)
